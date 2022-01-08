@@ -1,10 +1,12 @@
 class Solution {
 public:
-    static bool comp(vector<int> lhs, vector<int> rhs)
-    {
-        if(lhs[1]<rhs[1] || (lhs[1]==rhs[1] && lhs[2]<rhs[2]))
-            return true ;
-        return false ;
+    static bool comp(vector<int> a, vector<int> b)
+        {
+        
+        if(a[1]<b[1])return true;
+        else if(a[1]==b[1])return a[2]<b[2];
+        return a[1]<b[1];
+        
     }
     
     bool carPooling(vector<vector<int>>& trips, int capacity) {
