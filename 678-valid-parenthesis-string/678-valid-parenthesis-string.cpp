@@ -1,31 +1,27 @@
 class Solution {
-public://dp sol,dp(idx,count)=
-            //if open  dp(idx+1,count+1)
-            //else if close dp(idx+1,count-1)
-            //else * 3 cases open,close,none ke sath match 
-  
-    int dfs(string &s,int idx, int count,vector<vector<int>>& dp){
-     
-        
-        if(count<0)return 0;
-        if(idx==s.size()){
-            if(count==0)return dp[idx][count]=1;
-            return dp[idx][count]=0;
-        }
-        if(dp[idx][count]!=-1)return dp[idx][count];
-        
-        if(s[idx]=='(')return dp[idx][count]=dfs(s,idx+1,count+1,dp);
-        else if(s[idx]==')')return dp[idx][count]=dfs(s,idx+1,count-1,dp);
-        
-        //* case
-        return dp[idx][count]=dfs(s,idx+1,count+1,dp) || dfs(s,idx+1,count-1,dp)||dfs(s,idx+1,count,dp);
-        
-    }
-    
+public:
     bool checkValidString(string s) {
-        vector<vector<int>>dp(s.length()+1,vector<int>(s.length()+1,-1));
-        int ans= dfs(s,0,0,dp);
-        if(ans==0)return false;
+     //   if(s.size()==1)return false;
+       stack<int>st1,st2;
+        for(int i=0;i<s.length();i++){
+            if(s[i]=='*')st2.push(i);
+            else if(s[i]=='(')st1.push(i);
+            else{
+                if(st1.size()!=0 && s[st1.top()]=='(' )st1.pop();
+            else if(st2.size()!=0)st2.pop();
+                else return false;
+            
+            }
+            
+        }
+        while(st1.size()!=0){//open brackets left pair with star
+            if(st2.size()==0)return false;
+            if( st1.top()>st2.top())return false;
+            st1.pop();
+            st2.pop();
+        }
+        
+        
         return true;
     }
 };
