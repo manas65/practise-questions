@@ -50,6 +50,7 @@ public:
     TreeNode* deserialize(string data) {
         int i=0;
         vector<string>v;
+        //process string;
         while(i<data.length()){
             string temp="";
             while(data[i]!=','){
