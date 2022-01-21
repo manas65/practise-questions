@@ -1,38 +1,24 @@
 class Solution {
 public:
-    vector<int>v,backup;
-    int n=0;
+    vector<int>v;
     Solution(vector<int>& nums) {
-        n=nums.size();
         v=nums;
-        backup=nums;
     }
     
     vector<int> reset() {
-        v=backup;
         return v;
     }
     
     vector<int> shuffle() {
-  unordered_map<int,int>map;
-        
-        
-        vector<int>ans(n,0);
-        int count=0;
-        // int i=0;
-        while(count<n){
-            int idx=rand()%n;
-            while(map.find(idx)!=map.end())//idx is not presnt in map
-                idx=rand()%n;
-                           
-               map[idx]++;
-                
-                ans[count++]=v[idx];
- 
-            
+        vector<int>ans(v);
+  int n=ans.size();      
+        for(int i=0;i<n;i++){
+            int idx=rand()%(n-i);//dic  length of guess in every step
+            swap(ans[i+idx],ans[i]);
         }
-        
         return ans;
+        
+        
     }
 };
 
